@@ -1,0 +1,318 @@
+#usda 1.0
+(
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Scope "materials"
+{
+    def Material "karmamaterial_pillar" (
+        prepend apiSchemas = ["MaterialXConfigAPI"]
+        prepend inherits = </__class_mtl__/karmamaterial_pillar>
+    )
+    {
+        string config:mtlx:version = "1.39"
+        token outputs:kma:displacement.connect = </materials/karmamaterial_pillar/mtlxdisplacement.outputs:out>
+        token outputs:kma:surface.connect = </materials/karmamaterial_pillar/mtlxstandard_surface.outputs:out>
+        token outputs:surface.connect = </materials/karmamaterial_pillar/mtlxstandard_preview.outputs:surface>
+
+        def Shader "mtlxstandard_surface"
+        {
+            uniform token info:id = "ND_standard_surface_surfaceshader"
+            float inputs:base (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1
+                        string ogl_diff_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:base_color = (0.1, 0.1, 0.1) (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (0.8, 0.8, 0.8)
+                        string ogl_diff = "1"
+                    }
+                }
+            )
+            float inputs:coat (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_coat_intensity = "1"
+                    }
+                }
+            )
+            float inputs:coat_roughness (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0.1
+                        string ogl_coat_rough = "1"
+                    }
+                }
+            )
+            float inputs:emission (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_emit_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:emission_color (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (1, 1, 1)
+                        string ogl_emit = "1"
+                    }
+                }
+            )
+            float inputs:metalness = 0.8 (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_metallic = "1"
+                    }
+                }
+            )
+            float inputs:specular (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1
+                        string ogl_spec_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:specular_color (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (1, 1, 1)
+                        string ogl_spec = "1"
+                    }
+                }
+            )
+            float inputs:specular_IOR (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1.5
+                        string ogl_ior = "1"
+                    }
+                }
+            )
+            float inputs:specular_roughness (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0.2
+                        string ogl_rough = "1"
+                    }
+                }
+            )
+            float inputs:transmission (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_transparency = "1"
+                    }
+                }
+            )
+            token outputs:out
+        }
+
+        def Shader "mtlxdisplacement"
+        {
+            uniform token info:id = "ND_displacement_float"
+            token outputs:out
+        }
+
+        def Shader "mtlxstandard_preview" (
+            customData = {
+                bool HoudiniIsAutoCreatedShader = 1
+            }
+        )
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoatRoughness = 0.1
+            color3f inputs:diffuseColor = (0.1, 0.1, 0.1)
+            float inputs:metallic = 0.8
+            float inputs:roughness = 0.2
+            color3f inputs:specularColor = (1, 1, 1)
+            token outputs:surface
+        }
+    }
+
+    def Material "karmamaterial_flag" (
+        prepend apiSchemas = ["MaterialXConfigAPI"]
+        prepend inherits = </__class_mtl__/karmamaterial_flag>
+    )
+    {
+        string config:mtlx:version = "1.39"
+        token outputs:kma:displacement.connect = </materials/karmamaterial_flag/mtlxdisplacement.outputs:out>
+        token outputs:kma:surface.connect = </materials/karmamaterial_flag/mtlxstandard_surface.outputs:out>
+        token outputs:surface.connect = </materials/karmamaterial_flag/mtlxstandard_preview.outputs:surface>
+
+        def Shader "mtlxstandard_surface"
+        {
+            uniform token info:id = "ND_standard_surface_surfaceshader"
+            float inputs:base (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1
+                        string ogl_diff_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:base_color (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (0.8, 0.8, 0.8)
+                        string ogl_diff = "1"
+                    }
+                }
+            )
+            color3f inputs:base_color.connect = </materials/karmamaterial_flag/mtlximage1.outputs:out>
+            float inputs:coat (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_coat_intensity = "1"
+                    }
+                }
+            )
+            float inputs:coat_roughness (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0.1
+                        string ogl_coat_rough = "1"
+                    }
+                }
+            )
+            float inputs:emission (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_emit_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:emission_color (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (1, 1, 1)
+                        string ogl_emit = "1"
+                    }
+                }
+            )
+            float inputs:metalness (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_metallic = "1"
+                    }
+                }
+            )
+            float inputs:specular = 0.3 (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1
+                        string ogl_spec_intensity = "1"
+                    }
+                }
+            )
+            color3f inputs:specular_color (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double3 default_value = (1, 1, 1)
+                        string ogl_spec = "1"
+                    }
+                }
+            )
+            float inputs:specular_IOR (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 1.5
+                        string ogl_ior = "1"
+                    }
+                }
+            )
+            float inputs:specular_roughness = 0.4 (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0.2
+                        string ogl_rough = "1"
+                    }
+                }
+            )
+            float inputs:transmission (
+                customData = {
+                    dictionary HoudiniPreviewTags = {
+                        double default_value = 0
+                        string ogl_transparency = "1"
+                    }
+                }
+            )
+            token outputs:out
+        }
+
+        def Shader "mtlximage1"
+        {
+            uniform token info:id = "ND_image_vector2"
+            asset inputs:file = @../images/raceroad/chekerflag.jpg@
+            float2 inputs:texcoord.connect = </materials/karmamaterial_flag/mtlxtexcoord1.outputs:out>
+            float2 outputs:out
+        }
+
+        def Shader "mtlxtexcoord1"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+        }
+
+        def Shader "mtlxdisplacement"
+        {
+            uniform token info:id = "ND_displacement_float"
+            token outputs:out
+        }
+
+        def Shader "mtlxstandard_preview" (
+            customData = {
+                bool HoudiniIsAutoCreatedShader = 1
+            }
+        )
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoatRoughness = 0.1
+            color3f inputs:diffuseColor = (0.8, 0.8, 0.8)
+            color3f inputs:diffuseColor.connect = </materials/karmamaterial_flag/mtlxstandard_preview_texture_diffuseColor.outputs:rgb>
+            float inputs:roughness = 0.4
+            color3f inputs:specularColor = (0.3, 0.3, 0.3)
+            token outputs:surface
+        }
+
+        def Shader "mtlxstandard_preview_uv" (
+            customData = {
+                bool HoudiniIsAutoCreatedShader = 1
+            }
+        )
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            float2 inputs:fallback = (0, 0)
+            token inputs:varname = "st"
+            float2 outputs:result
+        }
+
+        def Shader "mtlxstandard_preview_texture_diffuseColor" (
+            customData = {
+                bool HoudiniIsAutoCreatedShader = 1
+            }
+        )
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../images/raceroad/chekerflag.jpg@
+            float2 inputs:st.connect = </materials/karmamaterial_flag/mtlxstandard_preview_uv.outputs:result>
+            color3f outputs:rgb
+        }
+    }
+}
+
