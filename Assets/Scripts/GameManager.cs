@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     GameObject time;
     public float delta = 0;
     public bool is_game_continue;
+    private float start_time;
 
     void Awake()
-    {
-        delta = 0;
+    {   
         if(instance == null)
         {
             instance = this;
@@ -21,17 +21,18 @@ public class GameManager : MonoBehaviour
     } 
     void Start()
     {
+        start_time = Time.time;
         time = GameObject.Find("Time");
-        is_game_continue = true;
+        instance.is_game_continue = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (is_game_continue)
+        if (instance.is_game_continue)
         {
-            delta += Time.deltaTime;
-            time.GetComponent<TextMeshProUGUI>().text = "Time: " + delta.ToString("F1");
+            instance.delta = Time.time - start_time;
+            time.GetComponent<TextMeshProUGUI>().text = "Time: " + instance.delta.ToString("F1");
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class car : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class car : MonoBehaviour
     private float speed = 0.0f;
     private float resist_value = 0.0f;
     private float rot_y_axis = 0.0f;
+    private GameManager gamemanager_script;
 
     Vector3 player_position;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gamemanager_script = GameManager.instance;
         arduinoConnector = GameObject.Find("Serial").GetComponent<ArduinoConnector>();
         player_position = transform.position;
     }
@@ -49,5 +52,11 @@ public class car : MonoBehaviour
         player_position.x += x_vector * speed;
         player_position.z += z_vector * speed;
         transform.position = player_position;    
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        gamemanager_script.is_game_continue = false;
+        SceneManager.LoadScene("ScoreScene");
     }
 }
